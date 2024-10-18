@@ -1,5 +1,3 @@
 update ORDERS  
 set O_SHOPKEY = sp_shopkey
 from shop
-join customer on C_NATIONKEY = sp_nationkey
-where O_CUSTKEY = C_CUSTKEY
