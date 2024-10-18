@@ -16,7 +16,7 @@ select
     l.L_RETURNFLAG as Operation,
     l.L_SHIPDATE as ShipDate,
     l.L_COMMITDATE as CommitDate,
-    l.L_RECEIPTDATE as ReceipDate
+    l.L_RECEIPTDATE as ReceiptDate
 from
     lineitems l
 order by
