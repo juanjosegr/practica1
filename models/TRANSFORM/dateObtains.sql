@@ -54,7 +54,6 @@ with v1 as(
         month (e.fecha_inicio) and month(e.fecha_fin) and
         day(o.order_date) between
         day(e.fecha_inicio) and day(e.fecha_fin)
-        and c.nation_key = e.nation_key
     where 
         l.OPERATION != 'A'
     group by
