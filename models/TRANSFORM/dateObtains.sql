@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with v1 as(
     select 
         c.CUSTOMER_KEY,
