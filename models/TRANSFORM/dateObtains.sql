@@ -23,33 +23,33 @@ with v1 as(
         end as ID_PLAZO_ENTREGA,
         e.desc as evento
     from
-        orders o
+        raw.DBT_JUANJOSEGR.orders o
     right join 
-        LINEITEMS l on
+        raw.DBT_JUANJOSEGR.LINEITEMS l on
         o.ORDER_KEY = l.ORDER_KEY
     join 
-        parts p on
+        raw.DBT_JUANJOSEGR.parts p on
         l.PART_KEY = p.PART_KEY
     right join 
-        customers c on
+        raw.DBT_JUANJOSEGR.customers c on
         o.CUSTOMER_KEY = c.CUSTOMER_KEY
     left join
-        nations n on
+        raw.DBT_JUANJOSEGR.nations n on
         c.NATION_KEY = n.NATION_KEY
     join
-        regions r on
+        raw.DBT_JUANJOSEGR.regions r on
         n.REGION_KEY = r.REGION_KEY
     join
-        converion_rates cr on
+        raw.DBT_JUANJOSEGR.converion_rates cr on
         n.NATION_KEY = cr.NATION_KEY
     join
-        SUPPLIERS sp on
+        raw.DBT_JUANJOSEGR.SUPPLIERS sp on
         n.nation_key = sp.nation_key
     join 
-        shops sh on
+        raw.DBT_JUANJOSEGR.shops sh on
         n.nation_key = sh.nation_key
     left join 
-        events e on
+        raw.DBT_JUANJOSEGR.events e on
         month(o.order_date) between 
         month (e.fecha_inicio) and month(e.fecha_fin) and
         day(o.order_date) between
@@ -68,18 +68,18 @@ with v1 as(
         o.ORDER_DATE || ' 00:00:00'  as orderDate,
         dateadd (hour, cr.UTC_HOUR_CONVER, orderDate ) as shop_hours
     from
-        lineitems l
+        raw.DBT_JUANJOSEGR.lineitems l
     join
-        orders o on
+        raw.DBT_JUANJOSEGR.orders o on
         l.order_key = o.order_key
     join
-        shops sh on
+        raw.DBT_JUANJOSEGR.shops sh on
         o.shop_key = sh.shop_key
     join 
-        nations n on
+        raw.DBT_JUANJOSEGR.nations n on
         sh.nation_key = n.nation_key
     join
-        converion_rates cr on
+        raw.DBT_JUANJOSEGR.converion_rates cr on
         n.nation_key = cr.nation_key
     group by l.order_key, l.price, cr.rate_currency, cr.currency, o.ORDER_DATE, cr.UTC_HOUR_CONVER
     order by l.order_key
