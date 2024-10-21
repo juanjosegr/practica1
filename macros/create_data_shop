@@ -20,6 +20,7 @@ INSERT INTO RAW.TPCH_SF1.SHOP (SP_SHOPKEY, SP_NAME, SP_NATIONKEY, SP_COMMENT) VA
 (19, 'Tienda_18_3', 18, 'Comentario para Tienda 3 en Nación 18'),
 (20, 'Tienda_19_1', 19, 'Comentario para Tienda 1 en Nación 19'),
 (21, 'Tienda_20_3', 20, 'Comentario para Tienda 3 en Nación 20'),
-(22, 'Tienda_22_3', 22, 'Comentario para Tienda 3 en Nación 22'),
-(23, 'Tienda_23_3', 23, 'Comentario para Tienda 3 en Nación 23'),
-(24, 'Tienda_24_1', 24, 'Comentario para Tienda 1 en Nación 24');
+(22, 'Tienda_24_1', 24, 'Comentario para Tienda 1 en Nación 21');
+(23, 'Tienda_22_3', 22, 'Comentario para Tienda 3 en Nación 22'),
+(24, 'Tienda_23_3', 23, 'Comentario para Tienda 3 en Nación 23'),
+(25, 'Tienda_24_1', 24, 'Comentario para Tienda 1 en Nación 24');
