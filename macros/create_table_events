@@ -1,5 +1,7 @@
 create table events (
     id_event int,
-    e_desc varchar (25),
-    e_fecha varchar (255)
+    desc varchar (25),
+    fecha_inicio DATE,
+    fecha_fin DATE,
+    nation_key NUMBER(38,0)
 )
