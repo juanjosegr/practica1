@@ -118,4 +118,4 @@ join v2 on
     and v1.part_key = v2.part_key
 group by v1.CUSTOMER_KEY, v1.ORDER_KEY, v1.PART_KEY, v1.PART_NAME, v1.Operation, v1.QUANTITY, v1.PRICE, v1.customer_price, v2.shop_price, v1.orderDate, v1.customer_hours, v2.shop_hours, v1.ID_PLAZO_ENTREGA,      v1.evento , v2.shop_key
 order by v1.customer_key, v1.order_key, v1.ID_PLAZO_ENTREGA
-limit 100
+
