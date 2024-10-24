@@ -1,4 +1,5 @@
 {{ config(materialized='table') }}
+
 with v1 as(
     select 
         c.CUSTOMER_KEY,
@@ -69,7 +70,9 @@ with v1 as(
         round((l.price * cr.rate_currency),2) || ' ' || cr.currency as shop_price,
         o.ORDER_DATE || ' 00:00:00'  as orderDate,
         dateadd (hour, cr.UTC_HOUR_CONVER, orderDate ) as shop_hours,
-        p.part_key
+        p.part_key,
+        n.nation_key as nation,
+        n.region_key as region
     from
         raw.DBT_JUANJOSEGR.lineitems l
     join
@@ -92,7 +95,7 @@ with v1 as(
         p.part_key = l.part_key
     where 
         l.operation != 'A'
-    group by l.order_key, l.price, cr.rate_currency, cr.currency, o.ORDER_DATE, cr.UTC_HOUR_CONVER, sh.shop_key, c.CUSTOMER_KEY, p.part_key
+    group by l.order_key, l.price, cr.rate_currency, cr.currency, o.ORDER_DATE, cr.UTC_HOUR_CONVER, sh.shop_key, c.CUSTOMER_KEY, p.part_key, n.nation_key,  n.region_key
     order by c.CUSTOMER_KEY, l.order_key, o.ORDER_DATE
 )
 select distinct
@@ -111,11 +114,14 @@ select distinct
     v2.shop_hours,
     v1.ID_PLAZO_ENTREGA,
     v1.evento,
+    v1.nation as customer_nation,
+    v1.region as customer_region,
+    v2.nation as shop_nation,
+    v2.region as shop_region
 from 
     v1
 join v2 on
     v1.order_key = v2.order_key
     and v1.part_key = v2.part_key
-group by v1.CUSTOMER_KEY, v1.ORDER_KEY, v1.PART_KEY, v1.PART_NAME, v1.Operation, v1.QUANTITY, v1.PRICE, v1.customer_price, v2.shop_price, v1.orderDate, v1.customer_hours, v2.shop_hours, v1.ID_PLAZO_ENTREGA,      v1.evento , v2.shop_key
+group by v1.CUSTOMER_KEY, v1.ORDER_KEY, v1.PART_KEY, v1.PART_NAME, v1.Operation, v1.QUANTITY, v1.PRICE, v1.customer_price, v2.shop_price, v1.orderDate, v1.customer_hours, v2.shop_hours, v1.ID_PLAZO_ENTREGA,      v1.evento , v2.shop_key, v1.nation, v1.region, v2.nation, v2.region
 order by v1.customer_key, v1.order_key, v1.ID_PLAZO_ENTREGA
-
